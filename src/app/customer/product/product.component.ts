@@ -63,6 +63,8 @@ export class ProductComponent implements OnInit {
     this.productObj = {};
     this.productFormGroup.reset();
 
+    this.productObj.tax = 0;
+    
     if(obj) {
 
       setTimeout(() => {        

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   imports: [
@@ -23,8 +24,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     SessionExpiredComponent,
     NavbarComponent,
     SidebarComponent,
+    NotFoundComponent,
   ],
-  declarations: [SessionExpiredComponent, NavbarComponent, SidebarComponent]
+  declarations: [SessionExpiredComponent, NavbarComponent, SidebarComponent, NotFoundComponent]
 })
 
 export class SharedModule {

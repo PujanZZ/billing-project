@@ -14,6 +14,13 @@ export class AppComponent {
   constructor(public utilsService: UtilsService, public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void { 
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    if(userData){
+      this.utilsService.username = `${userData.username}`;
+      this.utilsService.userProfilePicture = userData.profile_pic_url;
+    }
     
   }
 }

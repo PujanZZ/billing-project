@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilsService } from '../shared/services/utils.service';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class CustomerComponent implements OnInit {
   
 
-  constructor() {
+  constructor(public utilsService: UtilsService) {
   }
 
   ngOnInit() {

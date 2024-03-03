@@ -8,7 +8,7 @@ export class ServerVariableService {
   PATH_FOR_API = '';
 
   // AUTH
-  LOGIN_API = this.PATH_FOR_API + '';
+  LOGIN_API = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/login.php';
   REGISTRATION_API = this.PATH_FOR_API + '';
 
   //REFRESH TOKEN
