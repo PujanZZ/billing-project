@@ -1,0 +1,87 @@
+<div class="right-align mt-2 me-2">
+  <button class="btn btn-secondary m-2 btn-sm" (click)="openAddEditModal(null)"><i class="typcn typcn-pencil"></i>Add Customer</button>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Customer Name</th>
+        <th>Mobile No.</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of customerDetails">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.mobile}}</td>
+        <td>{{item.address}}</td>
+        <td>
+          <button type="button" class="btn btn-primary btn-icon btn-sm" (click)="openAddEditModal(item)">
+            <i class="typcn typcn-pencil"></i>
+          </button>
+
+          <button type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
+            <i class="typcn typcn-trash"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(customerDetails)">
+        <td colspan="20" class="text-center">
+          <span
+            class="truncate"><b>No Record Found.</b></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="customerAddEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="exampleModalLabel">Product Details</h3>
+        <a class="btn-icon" data-bs-dismiss="modal" aria-label="Close">
+          <i class="mdi mdi-close-box"></i>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form class="forms-sample" [formGroup]="customerFormGroup">
+          <div class="form-group">
+            <label for="exampleInputProduct">Customer Name</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputProduct" placeholder="Customer Name" [(ngModel)]="customerObj.name"
+              autocomplete="off" formControlName="name" [maxlength]="30">
+            <span
+              *ngIf="customerFormGroup.controls['name'].hasError('required') &&  customerFormGroup.controls['name'].touched"
+              class="text-danger">Customer Name is required!
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPrice">Mobile No.</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Mobile No" [(ngModel)]="customerObj.mobile"
+              autocomplete="off" formControlName="mobile" [maxlength]="15">
+            <span
+              *ngIf="customerFormGroup.controls['mobile'].hasError('required') &&  customerFormGroup.controls['mobile'].touched"
+              class="text-danger">Mobile No. is required!
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputTax">Address</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Address" autocomplete="off" [(ngModel)]="customerObj.address"
+              formControlName="address" [maxlength]="50">
+            <span *ngIf="customerFormGroup.controls['address'].hasError('required') &&  customerFormGroup.controls['address'].touched"
+              class="text-danger">Address is required!
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-secondary" (click)="onSaveCustomer()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
