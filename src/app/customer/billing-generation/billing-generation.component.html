@@ -6,7 +6,7 @@
     </ng-select>
   </div>
   <div>
-    <button class="btn btn-secondary mt-3 btn-sm"><i class="typcn typcn-pencil"></i> Add New Product</button>
+    <button [disabled]="!activeStatus" class="btn btn-secondary mt-3 btn-sm" (click)="openAddProductModal()"><i class="typcn typcn-pencil"></i> Add New Product</button>
   </div>
 
   <div class="below-drop">
@@ -46,7 +46,7 @@
             </button>
           </td>
         </tr>
-        <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails)">
+        <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0])">
           <td colspan="20" class="text-center">
             <span
               class="truncate"><b>No Record Found.</b></span>
@@ -69,7 +69,7 @@
 </div>
 
 
-<!-- <div class="modal fade" id="addEditProductBilling" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addEditProductBilling" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -99,6 +99,14 @@
             </span>
           </div>
           <div class="form-group">
+            <label for="exampleInputTax">Quantity<span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Quantity" autocomplete="off" [(ngModel)]="productObj.quantity"
+              formControlName="quantity" [maxlength]="25">
+            <span *ngIf="productFormGroup.controls['quantity'].hasError('required') &&  productFormGroup.controls['quantity'].touched"
+              class="text-danger">Quantity is required!
+            </span>
+          </div>
+          <div class="form-group">
             <label for="exampleInputTax">Tax<span class="text-danger">*</span></label>
             <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Tax" autocomplete="off" [(ngModel)]="productObj.tax"
               formControlName="tax" [maxlength]="25">
@@ -110,8 +118,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button class="btn btn-secondary" (click)="onSaveUpdate()">Submit</button>
+        <button class="btn btn-secondary" (click)="onSave()">Submit</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
