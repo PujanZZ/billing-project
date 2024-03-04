@@ -11,6 +11,11 @@ export class BillingGenerationComponent implements OnInit {
   activeStatus: any;
   demoItems = [];
 
+  billingDetails: any = [];
+  productLising = [];
+
+  customerId: any;
+
   constructor(public utilsService: UtilsService) { }
 
   ngOnInit() {
@@ -27,6 +32,26 @@ export class BillingGenerationComponent implements OnInit {
       this.demoItems = response;
       console.log(this.demoItems);
     })
+  }
+
+  getBillingDetails() {
+
+    this.billingDetails = [];
+
+    const param = {
+      cust_id: this.customerId
+    }
+
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_GET_METHOD, param, (res) => {
+      this.billingDetails = res;
+      console.log(this.billingDetails);      
+    })
+
+  }
+
+  onCustomerChange() {
+    this.customerId = this.activeStatus
+    this.getBillingDetails();
   }
 
 }

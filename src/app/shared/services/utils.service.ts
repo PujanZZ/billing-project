@@ -48,11 +48,10 @@ export class UtilsService {
       // );
 
       let param = {
-        // username: "admin",
-        // password: "admin"
+        id: 2,
       }
 
-      // this.http.post('https://madhavoverseas.co.in/my.testing.com/customer.php', param).subscribe(
+      // this.http.post('https://madhavoverseas.co.in/my.testing.com/billing_post.php', param).subscribe(
       //   (response) => {
       //     console.log('Response from API:', response);
       //   },
