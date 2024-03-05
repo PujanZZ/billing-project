@@ -28,6 +28,9 @@ export class BillingGenerationComponent implements OnInit {
     total: null,
   }
 
+  quantityTotal: any;
+  priceTotal: any;
+
   addEditProductBilling: any;
 
   constructor(public utilsService: UtilsService, private fb: FormBuilder) { }
@@ -65,6 +68,8 @@ export class BillingGenerationComponent implements OnInit {
 
   getBillingDetails() {
 
+    this.priceTotal = 0;
+    this.quantityTotal = 0;
     this.billingDetails = [];
 
     const param = {
@@ -73,7 +78,20 @@ export class BillingGenerationComponent implements OnInit {
 
     this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_GET_METHOD, param, (res) => {
       this.billingDetails = res;
-      console.log(this.billingDetails);      
+      
+      let quantity = this.billingDetails[0].product.map(v => v.quantity)
+      let price = this.billingDetails[0].product.map(v => v.Price)
+
+      console.log(this.billingDetails[0].product);
+      
+      
+      this.quantityTotal = quantity.reduce((a,i) => {
+        return a + i
+      }, 0)
+
+      this.priceTotal = price.reduce((a,i) => {
+        return a + i
+      }, 0)
     })
 
   }
@@ -81,6 +99,18 @@ export class BillingGenerationComponent implements OnInit {
   onCustomerChange() {
     this.customerId = this.activeStatus
     this.getBillingDetails();
+  }
+
+  onDeleteProduct(item) {
+
+    const param = {
+      id: Number(this.activeStatus),
+      pid: item.id,
+    }
+
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.PRODUCT_DELETE, param, (res) => {
+      this.getBillingDetails();
+    })
   }
   
   //Modal 
@@ -93,16 +123,21 @@ export class BillingGenerationComponent implements OnInit {
   onSave() {
 
     const param = {
-      id: Number(this.activeStatus),
+      cust_id: Number(this.activeStatus),
       product_name: this.productObj.product_name,
       price: this.productObj.price,
-      quantity: Number(this.productObj.quantity),
+      cquantity: Number(this.productObj.quantity),
       tax: Number(this.productObj.tax)
     }
 
-    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_ADD_METHOD, param, (res) => {
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_POST, param, (res) => {
       this.getBillingDetails();
+      this.addEditProductBilling.hide();
     })
+
+  }
+
+  onSaveBill() {
 
   }
 

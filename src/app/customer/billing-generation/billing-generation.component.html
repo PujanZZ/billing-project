@@ -41,10 +41,20 @@
           <td><input type="text" class="form-control" [(ngModel)]="item.discount"></td>
           <td>{{item.total}}</td>
           <td>
-            <button type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
+            <button (click)="onDeleteProduct(item)" type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
               <i class="typcn typcn-trash"></i>
             </button>
           </td>
+        </tr>
+        <tr *ngIf="billingDetails[0]?.product">
+          <td></td>
+          <td></td>
+          <td><b>{{quantityTotal}}</b></td>
+          <td></td>
+          <td><b>{{priceTotal}}</b></td>
+          <td></td>
+          <td>Final Total</td>
+          <td></td>
         </tr>
         <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0])">
           <td colspan="20" class="text-center">
