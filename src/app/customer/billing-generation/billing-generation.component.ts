@@ -122,6 +122,11 @@ export class BillingGenerationComponent implements OnInit {
 
   onSave() {
 
+    if(this.productFormGroup.invalid) {
+      this.productFormGroup.markAllAsTouched();
+      return;
+    }
+
     const param = {
       cust_id: Number(this.activeStatus),
       product_name: this.productObj.product_name,

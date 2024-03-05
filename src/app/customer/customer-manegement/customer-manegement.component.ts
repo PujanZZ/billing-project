@@ -20,6 +20,7 @@ export class CustomerManegementComponent implements OnInit {
     name: null,
     mobile: null,
     address: null,
+    email: null,
   }
 
   constructor(public utilsService: UtilsService, private fb: FormBuilder) { 
@@ -40,6 +41,7 @@ export class CustomerManegementComponent implements OnInit {
       name: ['', Validators.compose([Validators.required])],
       mobile: ['', Validators.compose([Validators.required])],
       address: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(this.utilsService.validationService.PATTERN_FOR_EMAIL)])],
     })
   }
 
@@ -67,6 +69,7 @@ export class CustomerManegementComponent implements OnInit {
           name: obj.name,
           mobile: obj.mobile,
           address: obj.address,
+          email: obj.email,
         }
       }, 100);
     }
@@ -85,6 +88,7 @@ export class CustomerManegementComponent implements OnInit {
       name: this.customerObj.name,
       mobile: Number(this.customerObj.mobile),
       address: this.customerObj.address,
+      email: this.customerObj.email,
     }
 
     this.utilsService.postMethodAPI(true, this.utilsService.serverVariableService.CUS_ADD, param, (response) => {
@@ -93,6 +97,16 @@ export class CustomerManegementComponent implements OnInit {
       setTimeout(() => {
         this.customerFormGroup.reset();
       }, 150);
+    })
+  }
+
+  onDeleteCustomer(item) {
+    const param = {
+      id: item.id
+    }
+
+    this.utilsService.postMethodAPI(true, this.utilsService.serverVariableService.CUS_DELETE, param, (response) => {
+      this.getCustomerDetails();
     })
   }
 

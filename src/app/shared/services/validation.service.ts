@@ -42,6 +42,7 @@ export class ValidationService {
 
   //Pattern for Password for 6 characters,one upper case letter,lower case letter,digit and special character like *,@,$. 
   PATTERN_FOR_PASSWORD = /^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,32}$/;
+  PATTERN_FOR_EMAIL = '[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,50}'; 
 
   /* End pattern use for validation */
   

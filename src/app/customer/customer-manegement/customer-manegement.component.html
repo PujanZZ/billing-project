@@ -9,6 +9,7 @@
         <th><b>#</b></th>
         <th><b>Customer Name</b></th>
         <th><b>Mobile No.</b></th>
+        <th><b>Email</b></th>
         <th><b>Address</b></th>
         <th><b>Action</b></th>
       </tr>
@@ -18,13 +19,14 @@
         <td>{{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{item.mobile}}</td>
+        <td>{{item.email}}</td>
         <td>{{item.address}}</td>
         <td>
           <button type="button" class="btn btn-primary btn-icon btn-sm" (click)="openAddEditModal(item)">
             <i class="typcn typcn-pencil"></i>
           </button>
 
-          <button type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
+          <button (click)="onDeleteCustomer(item)" type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
             <i class="typcn typcn-trash"></i>
           </button>
         </td>
@@ -62,10 +64,19 @@
           <div class="form-group">
             <label for="exampleInputPrice">Mobile No.</label>
             <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Mobile No" [(ngModel)]="customerObj.mobile"
-              autocomplete="off" formControlName="mobile" [maxlength]="15">
+              autocomplete="off" formControlName="mobile" [maxlength]="12">
             <span
               *ngIf="customerFormGroup.controls['mobile'].hasError('required') &&  customerFormGroup.controls['mobile'].touched"
               class="text-danger">Mobile No. is required!
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPrice">Email.</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Email" [(ngModel)]="customerObj.email"
+              autocomplete="off" formControlName="email" [maxlength]="30">
+            <span
+              *ngIf="customerFormGroup.controls['email'].hasError('required') &&  customerFormGroup.controls['email'].touched"
+              class="text-danger">Email is required!
             </span>
           </div>
           <div class="form-group">
