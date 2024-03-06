@@ -147,7 +147,7 @@ export class BillingGenerationComponent implements OnInit {
     }
     
     this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.SAVE_BILL, param, (res) => {
-      console.log(res);
+      this.getBillingDetails();
     })
 
   }

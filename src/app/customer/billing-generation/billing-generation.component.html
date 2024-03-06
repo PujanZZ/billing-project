@@ -32,8 +32,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of billingDetails[0]?.product">
-          <td>{{item.id}}</td>
+        <tr *ngFor="let item of billingDetails[0]?.product; index as i">
+          <td>{{i + 1}}</td>
           <td>{{item.product_name}}</td>
           <td><input type="number" class="form-control" [(ngModel)]="item.quantity"></td>
           <td>{{item.GST}}</td>
@@ -53,7 +53,7 @@
           <td></td>
           <td><b>{{priceTotal}}</b></td>
           <td></td>
-          <td>Final Total</td>
+          <td><b>{{this.billingDetails[0].Total}}</b></td>
           <td></td>
         </tr>
         <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
