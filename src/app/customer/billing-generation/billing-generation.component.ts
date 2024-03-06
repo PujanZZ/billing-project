@@ -79,17 +79,14 @@ export class BillingGenerationComponent implements OnInit {
     this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_GET_METHOD, param, (res) => {
       this.billingDetails = res;
       
-      let quantity = this.billingDetails[0].product.map(v => v.quantity)
-      let price = this.billingDetails[0].product.map(v => v.Price)
-
-      console.log(this.billingDetails[0].product);
-      
-      
-      this.quantityTotal = quantity.reduce((a,i) => {
+      let quantity = this.billingDetails[0]?.product?.map(v => v.quantity)
+      let price = this.billingDetails[0]?.product?.map(v => v.Price)
+   
+      this.quantityTotal = quantity?.reduce((a,i) => {
         return a + i
       }, 0)
 
-      this.priceTotal = price.reduce((a,i) => {
+      this.priceTotal = price?.reduce((a,i) => {
         return a + i
       }, 0)
     })
@@ -135,7 +132,7 @@ export class BillingGenerationComponent implements OnInit {
       tax: Number(this.productObj.tax)
     }
 
-    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_POST, param, (res) => {
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_POST2, param, (res) => {
       this.getBillingDetails();
       this.addEditProductBilling.hide();
     })
@@ -143,6 +140,15 @@ export class BillingGenerationComponent implements OnInit {
   }
 
   onSaveBill() {
+
+    const param = {
+      cust_id: Number(this.activeStatus),
+      bill_detail: this.billingDetails[0].product
+    }
+    
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.SAVE_BILL, param, (res) => {
+      console.log(res);
+    })
 
   }
 

@@ -38,7 +38,7 @@
           <td><input type="number" class="form-control" [(ngModel)]="item.quantity"></td>
           <td>{{item.GST}}</td>
           <td>{{item.Price}}</td>
-          <td><input type="text" class="form-control" [(ngModel)]="item.discount"></td>
+          <td><input type="number" class="form-control" [(ngModel)]="item.discount"></td>
           <td>{{item.total}}</td>
           <td>
             <button (click)="onDeleteProduct(item)" type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
@@ -46,7 +46,7 @@
             </button>
           </td>
         </tr>
-        <tr *ngIf="billingDetails[0]?.product">
+        <tr *ngIf="!this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
           <td></td>
           <td></td>
           <td><b>{{quantityTotal}}</b></td>
@@ -56,7 +56,7 @@
           <td>Final Total</td>
           <td></td>
         </tr>
-        <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0])">
+        <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
           <td colspan="20" class="text-center">
             <span
               class="truncate"><b>No Record Found.</b></span>
@@ -68,7 +68,7 @@
 
   <div class="mt-2 me-2 row">
     <div class="col text-start">
-      <button class="btn btn-secondary m-2 btn-sm"><i class="typcn typcn-pencil"></i> Save Bill</button>
+      <button class="btn btn-secondary m-2 btn-sm" (click)="onSaveBill()"><i class="typcn typcn-pencil"></i> Save Bill</button>
     </div>
     <div class="col right-align">
       <button class="btn btn-secondary m-2 btn-sm"><i class="typcn typcn-pencil"></i> Print Bill</button>

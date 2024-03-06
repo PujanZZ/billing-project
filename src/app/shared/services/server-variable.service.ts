@@ -30,4 +30,6 @@ export class ServerVariableService {
   BILLING_GET_METHOD = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/billing.php';
   BILLING_ADD_METHOD = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/billing_add.php';
   BILLING_POST = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/billing_post.php ';
+  BILLING_POST2 = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/billing_post2.php ';
+  SAVE_BILL = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/save_bill.php'
 }
