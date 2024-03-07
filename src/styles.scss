@@ -50334,3 +50334,10 @@ ight .sidebar .sidebar-profile .sidebar-profile-name .sidebar-designation {
 
 
 
+  .pagination-container {
+    position: fixed;
+    bottom: 0px; /* Adjust this value to your preference */
+    right: 20px; /* Adjust this value to your preference */
+    z-index: 1000; /* Adjust this value if necessary to ensure it's above other content */
+  }
+  

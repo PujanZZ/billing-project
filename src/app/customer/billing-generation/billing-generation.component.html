@@ -6,7 +6,7 @@
     </ng-select>
   </div>
   <div>
-    <button [disabled]="!activeStatus" class="btn btn-secondary mt-3 btn-sm" (click)="openAddProductModal()"><i class="typcn typcn-pencil"></i> Add New Product</button>
+    <button [disabled]="!activeStatus" class="btn btn-secondary mt-3 btn-sm" (click)="openAddProductModal()"><i class="typcn typcn-shopping-cart"></i> Add New Product</button>
   </div>
 
   <div class="below-drop">
@@ -19,59 +19,60 @@
 
   <div class="table-responsive">
     <table class="table table-hover table-striped table-bordered">
-      <thead>
+      <thead class="thead-dark">
         <tr>
-          <th><b>#</b></th>
-          <th><b>Product Name</b></th>
-          <th><b>Quantity</b></th>
-          <th><b>GST</b></th>
-          <th><b>Price</b></th>
-          <th><b>Discount</b></th>
-          <th><b>Total</b></th>
-          <th><b>Action</b></th>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">GST</th>
+          <th scope="col">Price</th>
+          <th scope="col">Discount</th>
+          <th scope="col">Total</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of billingDetails[0]?.product; index as i">
           <td>{{i + 1}}</td>
           <td>{{item.product_name}}</td>
-          <td><input type="number" class="form-control" [(ngModel)]="item.quantity"></td>
+          <td><input type="number" class="form-control form-control-sm" [(ngModel)]="item.quantity"></td>
           <td>{{item.GST}}</td>
           <td>{{item.Price}}</td>
-          <td><input type="number" class="form-control" [(ngModel)]="item.discount"></td>
+          <td><input type="number" class="form-control form-control-sm" [(ngModel)]="item.discount"></td>
           <td>{{item.total}}</td>
           <td>
-            <button (click)="onDeleteProduct(item)" type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
+            <button (click)="onDeleteProduct(item)" type="button" class="btn btn-danger btn-sm">
               <i class="typcn typcn-trash"></i>
             </button>
           </td>
         </tr>
         <tr *ngIf="!this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
+          <td colspan="2"></td>
+          <td class="text-center"><b>Total Quantity:</b> {{quantityTotal}}</td>
           <td></td>
+          <td class="text-center"><b>Total Price:</b> {{priceTotal}}</td>
           <td></td>
-          <td><b>{{quantityTotal}}</b></td>
-          <td></td>
-          <td><b>{{priceTotal}}</b></td>
-          <td></td>
-          <td><b>{{this.billingDetails[0].Total}}</b></td>
+          <td class="text-center"><b>Final Price:</b> {{this.billingDetails[0]?.Total}}</td>
           <td></td>
         </tr>
         <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
-          <td colspan="20" class="text-center">
-            <span
-              class="truncate"><b>No Record Found.</b></span>
+          <td colspan="8" class="text-center">
+            <span class="truncate"><b>No Record Found.</b></span>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+  
+  
+  
 
   <div class="mt-2 me-2 row">
     <div class="col text-start">
-      <button class="btn btn-secondary m-2 btn-sm" (click)="onSaveBill()"><i class="typcn typcn-pencil"></i> Save Bill</button>
+      <button [disabled]="utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)" class="btn btn-secondary m-2 btn-sm" (click)="onSaveBill()"><i class="typcn typcn-pencil"></i> Save Bill</button>
     </div>
     <div class="col right-align">
-      <button class="btn btn-secondary m-2 btn-sm"><i class="typcn typcn-pencil"></i> Print Bill</button>
+      <button class="btn btn-secondary m-2 btn-sm"><i class="typcn typcn-printer"></i> Print Bill</button>
     </div>
   </div>
   

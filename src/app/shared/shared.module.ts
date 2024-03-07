@@ -7,6 +7,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FormsModule,
     RouterModule,
     NgSelectModule,
+    NgxPaginationModule
   ],
   exports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     NavbarComponent,
     SidebarComponent,
     NotFoundComponent,
+    NgxPaginationModule
   ],
   declarations: [SessionExpiredComponent, NavbarComponent, SidebarComponent, NotFoundComponent]
 })

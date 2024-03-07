@@ -58,9 +58,11 @@ export class BillingGenerationComponent implements OnInit {
 
     this.demoItems = [];
 
-    const param = {}
+    const param = {
+      name: null
+    }
 
-    this.utilsService.getMethodAPI(false, this.utilsService.serverVariableService.CUS_LISTING, param, (response) =>{
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.CUS_LISTING, param, (response) =>{
       this.demoItems = response;
       console.log(this.demoItems);
     })

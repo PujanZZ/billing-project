@@ -10,6 +10,9 @@ declare var window: any;
 })
 export class ProductComponent implements OnInit {
 
+  p: number = 1;
+  itemsPerPage: any = 10;
+
   productDetails = [];
   selectedProduct: any;
 
@@ -113,6 +116,10 @@ export class ProductComponent implements OnInit {
     this.utilsService.postMethodAPI(true, this.utilsService.serverVariableService.DELETE_PRODUCT, param, (response) => {
       this.getProductDetails();
     })
+  }
+
+  absoluteIndex(indexOnPage: number): number {
+    return this.itemsPerPage * (this.p - 1) + indexOnPage;
   }
 
 }

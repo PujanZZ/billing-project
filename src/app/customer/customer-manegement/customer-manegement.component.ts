@@ -10,10 +10,15 @@ declare var window: any;
 })
 export class CustomerManegementComponent implements OnInit {
 
+  p: number = 1;
+  itemsPerPage: any = 10;
+
   customerDetails = [];
   customerFormGroup: FormGroup;
 
   customerAddEditModal: any;
+
+  searchText: string = null;
 
   customerObj: any = {
     id: null,
@@ -49,9 +54,11 @@ export class CustomerManegementComponent implements OnInit {
 
     this.customerDetails = [];
 
-    const param = {}
+    const param = {
+      name: this.searchText
+    }
 
-    this.utilsService.getMethodAPI(false, this.utilsService.serverVariableService.CUS_LISTING, param, (response) =>{
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.CUS_LISTING, param, (response) =>{
       this.customerDetails = response;
       console.log(this.customerDetails);
     })
@@ -108,6 +115,14 @@ export class CustomerManegementComponent implements OnInit {
     this.utilsService.postMethodAPI(true, this.utilsService.serverVariableService.CUS_DELETE, param, (response) => {
       this.getCustomerDetails();
     })
+  }
+
+  absoluteIndex(indexOnPage: number): number {
+    return this.itemsPerPage * (this.p - 1) + indexOnPage;
+  }
+
+  onChangeSearch() {
+    this.getCustomerDetails();
   }
 
 }

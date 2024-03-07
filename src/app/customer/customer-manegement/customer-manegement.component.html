@@ -1,45 +1,76 @@
-<div class="right-align mt-2 me-2">
-  <button class="btn btn-secondary m-2 btn-sm" (click)="openAddEditModal(null)"><i class="typcn typcn-pencil"></i>Add Customer</button>
+<div class="m-4">
+  <div class="row m-1">
+    <div class="col">
+      <div class="left-align mt-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" aria-label="search" aria-describedby="search" (change)="onChangeSearch()" [(ngModel)]="searchText">
+          <div class="input-group-append">
+            <span class="input-group-text" id="search">
+              <i class="typcn typcn-zoom"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="right-align mt-2 me-2">
+        <button class="btn btn-secondary m-2 btn-sm" (click)="openAddEditModal(null)">
+          <i class="typcn typcn-pencil"></i> Add Customer
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col"><b>#</b></th>
+          <th scope="col"><b>Customer Name</b></th>
+          <th scope="col"><b>Mobile No.</b></th>
+          <th scope="col"><b>Email</b></th>
+          <th scope="col"><b>Address</b></th>
+          <th scope="col"><b>Action</b></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of customerDetails | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; index as i">
+          <td>{{ itemsPerPage * (p - 1) + i + 1}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.mobile}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.address}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-icon btn-sm" (click)="openAddEditModal(item)">
+              <i class="typcn typcn-pencil"></i>
+            </button>
+  
+            <button (click)="onDeleteCustomer(item)" type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
+              <i class="typcn typcn-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(customerDetails)">
+          <td colspan="8" class="text-center">
+            <span
+              class="truncate"><b>No Record Found.</b></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-container">
+      <div class="d-flex justify-content-end">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="p = $event"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-hover table-striped table-bordered">
-    <thead>
-      <tr>
-        <th><b>#</b></th>
-        <th><b>Customer Name</b></th>
-        <th><b>Mobile No.</b></th>
-        <th><b>Email</b></th>
-        <th><b>Address</b></th>
-        <th><b>Action</b></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of customerDetails">
-        <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.mobile}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.address}}</td>
-        <td>
-          <button type="button" class="btn btn-primary btn-icon btn-sm" (click)="openAddEditModal(item)">
-            <i class="typcn typcn-pencil"></i>
-          </button>
-
-          <button (click)="onDeleteCustomer(item)" type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;">
-            <i class="typcn typcn-trash"></i>
-          </button>
-        </td>
-      </tr>
-      <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(customerDetails)">
-        <td colspan="20" class="text-center">
-          <span
-            class="truncate"><b>No Record Found.</b></span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 <div class="modal fade" id="customerAddEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
