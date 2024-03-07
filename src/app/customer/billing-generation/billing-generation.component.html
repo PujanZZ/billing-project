@@ -10,9 +10,9 @@
   </div>
 
   <div class="below-drop">
-    <span class="mt-2"><b>Email:</b> {{billingDetails[0]?.email}}</span>
-    <span class="mt-4"><b>Mobile:</b> {{billingDetails[0]?.mobile}}</span>
-    <span class="mt-4"><b>Address:</b> {{billingDetails[0]?.address}}</span>
+    <span class="mt-2"><b>Email:</b> {{billingDetails[0]?.email ? billingDetails[0]?.email : '-'}}</span>
+    <span class="mt-4"><b>Mobile:</b> {{billingDetails[0]?.mobile ? billingDetails[0]?.mobile : '-'}}</span>
+    <span class="mt-4"><b>Address:</b> {{billingDetails[0]?.address ? billingDetails[0]?.address : '-'}}</span>
   </div>
 
   <hr/>
