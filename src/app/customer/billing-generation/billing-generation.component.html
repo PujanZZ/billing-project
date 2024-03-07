@@ -23,9 +23,9 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Product Name</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">GST</th>
           <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">GST (Tax)</th>
           <th scope="col">Discount</th>
           <th scope="col">Total</th>
           <th scope="col">Action</th>
@@ -35,10 +35,10 @@
         <tr *ngFor="let item of billingDetails[0]?.product; index as i">
           <td>{{i + 1}}</td>
           <td>{{item.product_name}}</td>
-          <td><input type="number" class="form-control form-control-sm" [(ngModel)]="item.quantity"></td>
-          <td>{{item.GST}}</td>
           <td>{{item.Price}}</td>
-          <td><input type="number" class="form-control form-control-sm" [(ngModel)]="item.discount"></td>
+          <td><input type="number" [min]="0" class="form-control form-control-sm" [(ngModel)]="item.quantity"></td>
+          <td>{{item.GST}}</td>
+          <td><input type="number"  [min]="0" [max]="99" class="form-control form-control-sm" [(ngModel)]="item.discount"></td>
           <td>{{item.total}}</td>
           <td>
             <button (click)="onDeleteProduct(item)" type="button" class="btn btn-danger btn-sm">
@@ -48,9 +48,9 @@
         </tr>
         <tr *ngIf="!this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
           <td colspan="2"></td>
+          <td class="text-center"><b>Total Price:</b> {{priceTotal}}</td>
           <td class="text-center"><b>Total Quantity:</b> {{quantityTotal}}</td>
           <td></td>
-          <td class="text-center"><b>Total Price:</b> {{priceTotal}}</td>
           <td></td>
           <td class="text-center"><b>Final Price:</b> {{this.billingDetails[0]?.Total}}</td>
           <td></td>
@@ -108,6 +108,10 @@
               *ngIf="productFormGroup.controls['price'].hasError('required') &&  productFormGroup.controls['price'].touched"
               class="text-danger">Price is required!
             </span>
+            <p class="text-danger"
+              *ngIf="!productFormGroup.controls['price'].hasError('required') && !productFormGroup.controls['price'].valid && productFormGroup.controls['price'].touched">
+              Price is Invalid!
+            </p>
           </div>
           <div class="form-group">
             <label for="exampleInputTax">Quantity<span class="text-danger">*</span></label>
@@ -116,6 +120,10 @@
             <span *ngIf="productFormGroup.controls['quantity'].hasError('required') &&  productFormGroup.controls['quantity'].touched"
               class="text-danger">Quantity is required!
             </span>
+            <p class="text-danger"
+              *ngIf="!productFormGroup.controls['quantity'].hasError('required') && !productFormGroup.controls['quantity'].valid && productFormGroup.controls['quantity'].touched">
+              Quantity is Invalid!
+            </p>
           </div>
           <div class="form-group">
             <label for="exampleInputTax">Tax<span class="text-danger">*</span></label>
@@ -124,6 +132,10 @@
             <span *ngIf="productFormGroup.controls['tax'].hasError('required') &&  productFormGroup.controls['tax'].touched"
               class="text-danger">Tax is required!
             </span>
+            <p class="text-danger"
+            *ngIf="!productFormGroup.controls['tax'].hasError('required') && !productFormGroup.controls['tax'].valid && productFormGroup.controls['tax'].touched">
+              Quantity is Invalid!
+            </p>
           </div>
         </form>
       </div>

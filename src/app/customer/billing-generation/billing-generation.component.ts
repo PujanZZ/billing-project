@@ -48,9 +48,9 @@ export class BillingGenerationComponent implements OnInit {
   productForm() {
     this.productFormGroup = this.fb.group({
       product_name: ['', Validators.compose([Validators.required])],
-      price: ['', Validators.compose([Validators.required])],
-      quantity: ['', Validators.compose([Validators.required])],
-      tax: ['', Validators.compose([Validators.required])],
+      price: ['', Validators.compose([Validators.required, Validators.min(0), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS)])],
+      quantity: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS)])],
+      tax: ['', Validators.compose([Validators.required, Validators.min(0), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS_AND_DOT)])],
     })
   }
 
@@ -80,6 +80,10 @@ export class BillingGenerationComponent implements OnInit {
 
     this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_GET_METHOD, param, (res) => {
       this.billingDetails = res;
+
+      this.billingDetails[0]?.product.forEach(element => {
+        element.total = element.total.toFixed(2)
+      });
       
       let quantity = this.billingDetails[0]?.product?.map(v => v.quantity)
       let price = this.billingDetails[0]?.product?.map(v => v.Price)
@@ -91,6 +95,9 @@ export class BillingGenerationComponent implements OnInit {
       this.priceTotal = price?.reduce((a,i) => {
         return a + i
       }, 0)
+
+      
+      
     })
 
   }
@@ -143,6 +150,13 @@ export class BillingGenerationComponent implements OnInit {
 
   onSaveBill() {
 
+    if (!this.validateInputs()) {
+      this.utilsService.toasterService.error('Quantity should be greater than 0, discount cannot be negative, and discount cannot be more than 100.', '', {
+        closeButton: true,
+      });
+      return;
+    }
+
     const param = {
       cust_id: Number(this.activeStatus),
       bill_detail: this.billingDetails[0].product
@@ -152,6 +166,16 @@ export class BillingGenerationComponent implements OnInit {
       this.getBillingDetails();
     })
 
+  }
+
+  validateInputs() {
+    for (const item of this.billingDetails[0]?.product) {
+      if (item.quantity <= 0 || item.quantity % 1 !== 0 || item.discount < 0 || item.discount > 100) {
+        console.error("Quantity should be a positive integer, discount cannot be negative, and discount cannot be more than 100.");
+        return false;
+      }
+    }
+    return true;
   }
 
 }
