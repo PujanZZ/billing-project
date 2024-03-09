@@ -6,7 +6,8 @@
     </ng-select>
   </div>
   <div>
-    <button [disabled]="!activeStatus" class="btn btn-secondary mt-3 btn-sm" (click)="openAddProductModal()"><i class="typcn typcn-shopping-cart"></i> Add New Product</button>
+    <button [disabled]="!activeStatus" class="btn btn-secondary mt-3 btn-sm" (click)="openAddProductModal()"><i
+        class="typcn typcn-shopping-cart"></i> Add New Product</button>
   </div>
 
   <div class="below-drop">
@@ -15,7 +16,7 @@
     <span class="mt-4"><b>Address:</b> {{billingDetails[0]?.address ? billingDetails[0]?.address : '-'}}</span>
   </div>
 
-  <hr/>
+  <hr />
 
   <div class="table-responsive">
     <table class="table table-hover table-striped table-bordered">
@@ -25,7 +26,7 @@
           <th scope="col">Product Name</th>
           <th scope="col">Price</th>
           <th scope="col">Quantity</th>
-          <th scope="col">GST (Tax) (%)</th>
+          <!-- <th scope="col">GST (Tax) (%)</th> -->
           <th scope="col">Discount</th>
           <th scope="col">Total</th>
           <th scope="col">Action</th>
@@ -37,8 +38,9 @@
           <td>{{item.product_name}}</td>
           <td>{{item.Price}}</td>
           <td><input type="number" [min]="0" class="form-control form-control-sm" [(ngModel)]="item.quantity"></td>
-          <td>{{item.GST}}</td>
-          <td><input type="number"  [min]="0" [max]="99" class="form-control form-control-sm" [(ngModel)]="item.discount"></td>
+          <!-- <td>{{item.GST}}</td> -->
+          <td><input type="number" [min]="0" [max]="99" class="form-control form-control-sm"
+              [(ngModel)]="item.discount"></td>
           <td>{{item.total}}</td>
           <td>
             <button (click)="onDeleteProduct(item)" type="button" class="btn btn-danger btn-sm">
@@ -51,7 +53,7 @@
           <td class="text-center"><b>Total Price:</b> {{priceTotal}}</td>
           <td class="text-center"><b>Total Quantity:</b> {{quantityTotal}}</td>
           <td></td>
-          <td></td>
+          <!-- <td></td> -->
           <td class="text-center"><b>Final Price:</b> {{this.billingDetails[0]?.Total}}</td>
           <td></td>
         </tr>
@@ -63,22 +65,22 @@
       </tbody>
     </table>
   </div>
-  
-  
-  
+
+
+
 
   <div class="mt-2 me-2 row">
     <div class="col text-start">
-      <button [disabled]="utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)" class="btn btn-secondary m-2 btn-sm" (click)="onSaveBill()"><i class="typcn typcn-pencil"></i> Save Bill</button>
+      <button [disabled]="utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)"
+        class="btn btn-secondary m-2 btn-sm" (click)="onSaveBill()"><i class="typcn typcn-pencil"></i> Save
+        Bill</button>
     </div>
-    <div class="col right-align">
-      <button class="btn btn-secondary m-2 btn-sm"><i class="typcn typcn-printer"></i> Print Bill</button>
+    <div class="col right-align" #id>
+      <button class="btn btn-secondary m-2 btn-sm" (click)="printJS()"><i class="typcn typcn-printer"></i> Print
+        Bill</button>
     </div>
   </div>
-  
-
 </div>
-
 
 <div class="modal fade" id="addEditProductBilling" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -93,8 +95,8 @@
         <form class="forms-sample" [formGroup]="productFormGroup">
           <div class="form-group">
             <label for="exampleInputProduct">Product Name<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputProduct" placeholder="Product Name" [(ngModel)]="productObj.product_name"
-              autocomplete="off" formControlName="product_name" [maxlength]="25">
+            <input type="text" class="form-control form-control-sm" id="exampleInputProduct" placeholder="Product Name"
+              [(ngModel)]="productObj.product_name" autocomplete="off" formControlName="product_name" [maxlength]="25">
             <span
               *ngIf="productFormGroup.controls['product_name'].hasError('required') &&  productFormGroup.controls['product_name'].touched"
               class="text-danger">Product Name is required!
@@ -102,8 +104,8 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPrice">Price<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Price" [(ngModel)]="productObj.price"
-              autocomplete="off" formControlName="price" [maxlength]="10">
+            <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Price"
+              [(ngModel)]="productObj.price" autocomplete="off" formControlName="price" [maxlength]="10">
             <span
               *ngIf="productFormGroup.controls['price'].hasError('required') &&  productFormGroup.controls['price'].touched"
               class="text-danger">Price is required!
@@ -115,9 +117,10 @@
           </div>
           <div class="form-group">
             <label for="exampleInputTax">Quantity<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Quantity" autocomplete="off" [(ngModel)]="productObj.quantity"
-              formControlName="quantity" [maxlength]="25">
-            <span *ngIf="productFormGroup.controls['quantity'].hasError('required') &&  productFormGroup.controls['quantity'].touched"
+            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Quantity"
+              autocomplete="off" [(ngModel)]="productObj.quantity" formControlName="quantity" [maxlength]="25">
+            <span
+              *ngIf="productFormGroup.controls['quantity'].hasError('required') &&  productFormGroup.controls['quantity'].touched"
               class="text-danger">Quantity is required!
             </span>
             <p class="text-danger"
@@ -127,13 +130,14 @@
           </div>
           <div class="form-group">
             <label for="exampleInputTax">Tax<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Tax" autocomplete="off" [(ngModel)]="productObj.tax"
-              formControlName="tax" [maxlength]="25">
-            <span *ngIf="productFormGroup.controls['tax'].hasError('required') &&  productFormGroup.controls['tax'].touched"
+            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Tax"
+              autocomplete="off" [(ngModel)]="productObj.tax" formControlName="tax" [maxlength]="25">
+            <span
+              *ngIf="productFormGroup.controls['tax'].hasError('required') &&  productFormGroup.controls['tax'].touched"
               class="text-danger">Tax is required!
             </span>
             <p class="text-danger"
-            *ngIf="!productFormGroup.controls['tax'].hasError('required') && !productFormGroup.controls['tax'].valid && productFormGroup.controls['tax'].touched">
+              *ngIf="!productFormGroup.controls['tax'].hasError('required') && !productFormGroup.controls['tax'].valid && productFormGroup.controls['tax'].touched">
               Quantity is Invalid!
             </p>
           </div>
