@@ -40,6 +40,8 @@ export class BillingGenerationComponent implements OnInit {
 
   addEditProductBilling: any;
 
+  showPrintButton: boolean = false;
+
   constructor(public utilsService: UtilsService, private fb: FormBuilder, private datePipe: DatePipe) {
     const date = new Date();
     this.formattedDate = this.datePipe.transform(date, 'dd MMM yyyy');
@@ -114,6 +116,7 @@ export class BillingGenerationComponent implements OnInit {
 
   onCustomerChange() {
     this.customerId = this.activeStatus
+    this.showPrintButton = false;
     this.getBillingDetails();
   }
 
@@ -174,6 +177,7 @@ export class BillingGenerationComponent implements OnInit {
 
     this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.SAVE_BILL, param, (res) => {
       this.getBillingDetails();
+      this.showPrintButton = true;
     })
 
   }
@@ -336,7 +340,9 @@ export class BillingGenerationComponent implements OnInit {
         </div>
         <img src="https://i.imgur.com/RVDDvKd.png" alt="Company Logo" style="max-width: 50px; height: auto; position: absolute; top: 20px; right: 20px; border-radius: 50%;">
     </div>
-    
+    <div style="position: absolute; top: 470px; left: 35rem; border: 2px solid #ddd;">
+      <span>Final Total: <strong>${userDetails.total_count}</strong></span>
+    </div>
     
     `,
       style: 'margin-top: 200px',
