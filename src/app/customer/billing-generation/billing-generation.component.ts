@@ -305,7 +305,7 @@ export class BillingGenerationComponent implements OnInit {
         { field: 'product_name', displayName: 'Product Name', alignment: 'right' },
         { field: 'Price', displayName: 'Price' },
         { field: 'quantity', displayName: 'Quantity' },
-        { field: 'discount', displayName: 'Discount' },
+        { field: 'GST', displayName: 'Tax' },
         { field: 'total', displayName: 'Total' },
       ],
       type: 'json',
