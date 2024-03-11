@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.utilsService.postMethodAPI(true, this.utilsService.serverVariableService.LOGIN_API, param, (response) => {
       const loginResponse = response;
       this.setLocalStorage(loginResponse, loginResponse.token).then(() => {
-        this.utilsService.redirectTo('/admin/customer-management');
+        this.utilsService.redirectTo('/admin/dashboard');
       })
     })  
 

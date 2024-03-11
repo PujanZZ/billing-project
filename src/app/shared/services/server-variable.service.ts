@@ -32,4 +32,7 @@ export class ServerVariableService {
   BILLING_POST = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/billing_post.php ';
   BILLING_POST2 = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/billing_post2.php ';
   SAVE_BILL = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/save_bill.php'
+
+  //COUNTER
+  DASHBOARD_COUNTER = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/counter.php'
 }

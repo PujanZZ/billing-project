@@ -21,7 +21,9 @@ export class BillingGenerationComponent implements OnInit {
   demoItems = [];
 
   billingDetails: any = [];
+
   productLising = [];
+  selectedProduct: any;
 
   customerId: any;
   productFormGroup: FormGroup;
@@ -59,10 +61,10 @@ export class BillingGenerationComponent implements OnInit {
 
   productForm() {
     this.productFormGroup = this.fb.group({
-      product_name: ['', Validators.compose([Validators.required])],
-      price: ['', Validators.compose([Validators.required, Validators.min(0), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS)])],
+      // product_name: ['', Validators.compose([Validators.required])],
+      // price: ['', Validators.compose([Validators.required, Validators.min(0), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS)])],
       quantity: ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS)])],
-      tax: ['', Validators.compose([Validators.required, Validators.min(0), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS_AND_DOT)])],
+      // tax: ['', Validators.compose([Validators.required, Validators.min(0), Validators.pattern(this.utilsService.validationService.ONLY_NUMBERS_AND_DOT)])],
     })
   }
 
@@ -118,6 +120,7 @@ export class BillingGenerationComponent implements OnInit {
     this.customerId = this.activeStatus
     this.showPrintButton = false;
     this.getBillingDetails();
+    this.getProductListing();
   }
 
   onDeleteProduct(item) {
@@ -135,6 +138,7 @@ export class BillingGenerationComponent implements OnInit {
   //Modal 
 
   openAddProductModal() {
+    this.selectedProduct = null;
     this.productFormGroup.reset();
     this.addEditProductBilling.show();
   }
@@ -146,15 +150,20 @@ export class BillingGenerationComponent implements OnInit {
       return;
     }
 
-    const param = {
-      cust_id: Number(this.activeStatus),
-      product_name: this.productObj.product_name,
-      price: this.productObj.price,
-      cquantity: Number(this.productObj.quantity),
-      tax: Number(this.productObj.tax)
+    if (this.utilsService.isEmptyObjectOrNullUndefined(this.selectedProduct)) {
+      return;
     }
 
-    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.BILLING_POST2, param, (res) => {
+
+    const param = {
+      cust_id: Number(this.activeStatus),
+      product_name: this.selectedProduct.name,
+      price: Number(this.selectedProduct.mrp),
+      cquantity: Number(this.productObj.quantity),
+      tax: Number(this.selectedProduct.tax)
+    }
+
+    this.utilsService.postMethodAPI(true, this.utilsService.serverVariableService.BILLING_POST2, param, (res) => {
       this.getBillingDetails();
       this.addEditProductBilling.hide();
     })
@@ -306,6 +315,7 @@ export class BillingGenerationComponent implements OnInit {
         { field: 'Price', displayName: 'Price' },
         { field: 'quantity', displayName: 'Quantity' },
         { field: 'GST', displayName: 'Tax' },
+        { field: 'discount', displayName: 'Discount' },
         { field: 'total', displayName: 'Total' },
       ],
       type: 'json',
@@ -336,14 +346,13 @@ export class BillingGenerationComponent implements OnInit {
                         <span style="display: block; margin-top: 5px; color: #555;">${this.formattedDate}</span>
                     </address>
                 </div>
+                <div class="col-xs-6 text-right">
+
+                </div>
             </div>
         </div>
         <img src="https://i.imgur.com/RVDDvKd.png" alt="Company Logo" style="max-width: 50px; height: auto; position: absolute; top: 20px; right: 20px; border-radius: 50%;">
-    </div>
-    <div style="position: absolute; top: 470px; left: 35rem; border: 2px solid #ddd;">
-      <span>Final Total: <strong>${userDetails.total_count}</strong></span>
-    </div>
-    
+    </div>   
     `,
       style: 'margin-top: 200px',
     });
@@ -351,4 +360,24 @@ export class BillingGenerationComponent implements OnInit {
 
   }
 
+  // Product Listing 
+
+  getProductListing() {
+
+    this.productLising = []
+
+    const param = {
+      name: null
+    }
+
+    this.utilsService.getMethodAPI(false, this.utilsService.serverVariableService.PRODUCT_LISTING, param, (response) => {
+      this.productLising = response;
+      console.log(this.productLising);
+    })
+
+  }
+
+  onProductChange(value) {
+    this.selectedProduct = value
+  }
 }
