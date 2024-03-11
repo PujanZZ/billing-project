@@ -323,36 +323,45 @@ export class BillingGenerationComponent implements OnInit {
       gridStyle: 'border: 2px solid #ddd; padding: 8px;',
       documentTitle: 'Invoice',
       header:
-        `<div class="row" style="margin-top: 20px; font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
-        <div class="col-xs-12">
-            <div class="invoice-title" style="text-align: center;">
-                <h2 style="margin: 0; color: #333;">Invoice</h2>
-                <h3 style="margin: 5px 0 0; color: #555;">Order # ${userDetails.orders}</h3>
-            </div>
-            <hr style="border-top: 1px solid #ccc; margin: 20px 0;">
-            <div class="row">
-                <div class="col-xs-6">
-                    <div style="font-size: 14px;">
-                        <strong>Customer Details</strong><br>
-                        <span style="display: block; margin-top: 10px; color: #555;"><b>${userDetails.name}</b></span>
-                        <span style="display: block; margin-top: 5px; color: #555;">${userDetails.mobile}</span>
-                        <span style="display: block; margin-top: 5px; color: #555;">${userDetails.address}</span>
+        `
+        <div class="container">
+        <div class="row" style="margin-top: 20px; font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; border-radius: 10px; position: relative;">
+            <div class="col-xs-12">
+                <div class="invoice-title" style="text-align: center;">
+                    <h2 style="margin: 0; color: #333;">Invoice</h2>
+                    <h3 style="margin: 5px 0 0; color: #555;">Order # ${userDetails.orders}</h3>
+                </div>
+                <hr style="border-top: 1px solid #ccc; margin: 20px 0;">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div style="font-size: 14px;">
+                            <strong>Customer Details</strong><br>
+                            <span style="display: block; margin-top: 10px; color: #555;"><b>${userDetails.name}</b></span>
+                            <span style="display: block; margin-top: 5px; color: #555;">${userDetails.mobile}</span>
+                            <span style="display: block; margin-top: 5px; color: #555;">${userDetails.address}</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="col-xs-6 text-right">
+                        <div style="font-size: 14px;">
+                            <strong>Order Date:</strong><br>
+                            <span style="display: block; margin-top: 5px; color: #555;">${this.formattedDate}</span>
+                        </div>
                     </div>
                 </div>
-                <br />
-                <div class="col-xs-6 text-right">
-                    <address style="font-size: 14px;">
-                        <strong>Order Date:</strong><br>
-                        <span style="display: block; margin-top: 5px; color: #555;">${this.formattedDate}</span>
-                    </address>
-                </div>
-                <div class="col-xs-6 text-right">
-
+            </div>
+            <img src="https://i.imgur.com/RVDDvKd.png" alt="Company Logo" style="max-width: 50px; height: auto; position: absolute; top: 20px; right: 20px; border-radius: 50%;">
+        </div>
+        <!-- Total Price Counter -->
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-xs-12 text-right">
+                <div class="total-price-box" style="background-color: #e3e3e3; padding: 10px; border-radius: 5px; text-align: center;">
+                    <strong>Total Price:</strong> ${userDetails.total_count}
                 </div>
             </div>
         </div>
-        <img src="https://i.imgur.com/RVDDvKd.png" alt="Company Logo" style="max-width: 50px; height: auto; position: absolute; top: 20px; right: 20px; border-radius: 50%;">
-    </div>   
+    </div>
+    
     `,
       style: 'margin-top: 200px',
     });

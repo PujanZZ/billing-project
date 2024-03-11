@@ -1,9 +1,9 @@
 <div class="m-4">
-  <div class="row m-1">
+  <div class="row">
     <div class="col">
       <div class="left-align mt-2">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" aria-label="search" aria-describedby="search" (change)="onChangeSearch()" [(ngModel)]="searchText">
+          <input type="text" class="form-control" placeholder="Search Customer" aria-label="search" aria-describedby="search" (change)="onChangeSearch()" [(ngModel)]="searchText">
           <div class="input-group-append">
             <span class="input-group-text" id="search">
               <i class="typcn typcn-zoom"></i>
@@ -21,8 +21,8 @@
     </div>
   </div>
   
-  <div class="table-responsive">
-    <table class="table table-hover table-striped table-bordered">
+  <div style="max-height: 680px; overflow-y: auto;">
+    <table class="table table-hover table-striped table-bordered sticky-header">
       <thead class="thead-dark">
         <tr>
           <th scope="col"><b>#</b></th>
@@ -113,7 +113,7 @@
           <div class="form-group">
             <label for="exampleInputTax">Address</label>
             <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Address" autocomplete="off" [(ngModel)]="customerObj.address"
-              formControlName="address" [maxlength]="50">
+              formControlName="address" [maxlength]="200">
             <span *ngIf="customerFormGroup.controls['address'].hasError('required') &&  customerFormGroup.controls['address'].touched"
               class="text-danger">Address is required!
             </span>

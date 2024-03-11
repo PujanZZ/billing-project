@@ -1,10 +1,29 @@
 <div class="m-4">
-  <div class="right-align mt-2 me-2">
-    <button class="btn btn-secondary m-2 btn-sm" (click)="openAddEditModal(null)"><i class="typcn typcn-pencil"></i>Add Product</button>
+  <div class="row">
+    <div class="col">
+      <div class="left-align mt-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Product" aria-label="search" aria-describedby="search"
+            (change)="onChangeSearch()" [(ngModel)]="searchText">
+          <div class="input-group-append">
+            <span class="input-group-text" id="search">
+              <i class="typcn typcn-zoom"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="right-align mt-2 me-2">
+        <button class="btn btn-secondary m-2 btn-sm" (click)="openAddEditModal(null)">
+          <i class="typcn typcn-pencil"></i> Add Product
+        </button>
+      </div>
+    </div>
   </div>
-  
-  <div class="table-responsive">
-    <table class="table table-hover table-striped table-bordered">
+
+  <div style="max-height: 700px; overflow-y: auto;">
+    <table class="table table-hover table-striped table-bordered sticky-header">
       <thead class="thead-dark">
         <tr>
           <th><b>#</b></th>
@@ -26,26 +45,22 @@
             <button type="button" class="btn btn-primary btn-icon btn-sm" (click)="openAddEditModal(item)">
               <i class="typcn typcn-pencil"></i>
             </button>
-            <button type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;" (click)="onDeleteProduct(item)">
+            <button type="button" class="btn btn-outline-danger btn-icon btn-sm" style="margin-left: 10px;"
+              (click)="onDeleteProduct(item)">
               <i class="typcn typcn-trash"></i>
             </button>
           </td>
         </tr>
         <tr *ngIf="this.utilsService.isEmptyObjectOrNullUndefined(productDetails)">
           <td colspan="20" class="text-center">
-            <span
-              class="truncate"><b>No Record Found.</b></span>
+            <span class="truncate"><b>No Record Found.</b></span>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="pagination-container">
       <div class="d-flex justify-content-end">
-        <pagination-controls
-          previousLabel="Prev"
-          nextLabel="Next"
-          (pageChange)="p = $event"
-        >
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="p = $event">
         </pagination-controls>
       </div>
     </div>
@@ -66,8 +81,8 @@
         <form class="forms-sample" [formGroup]="productFormGroup">
           <div class="form-group">
             <label for="exampleInputProduct">Product Name<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputProduct" placeholder="Product Name" [(ngModel)]="productObj.product_name"
-              autocomplete="off" formControlName="product_name" [maxlength]="25">
+            <input type="text" class="form-control form-control-sm" id="exampleInputProduct" placeholder="Product Name"
+              [(ngModel)]="productObj.product_name" autocomplete="off" formControlName="product_name" [maxlength]="25">
             <span
               *ngIf="productFormGroup.controls['product_name'].hasError('required') &&  productFormGroup.controls['product_name'].touched"
               class="text-danger">Product Name is required!
@@ -75,8 +90,8 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPrice">Price<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Price" [(ngModel)]="productObj.price"
-              autocomplete="off" formControlName="price" [maxlength]="10">
+            <input type="text" class="form-control form-control-sm" id="exampleInputPrice" placeholder="Price"
+              [(ngModel)]="productObj.price" autocomplete="off" formControlName="price" [maxlength]="10">
             <span
               *ngIf="productFormGroup.controls['price'].hasError('required') &&  productFormGroup.controls['price'].touched"
               class="text-danger">Price is required!
@@ -84,9 +99,10 @@
           </div>
           <div class="form-group">
             <label for="exampleInputTax">Tax<span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Tax" autocomplete="off" [(ngModel)]="productObj.tax"
-              formControlName="tax" [maxlength]="25">
-            <span *ngIf="productFormGroup.controls['tax'].hasError('required') &&  productFormGroup.controls['tax'].touched"
+            <input type="text" class="form-control form-control-sm" id="exampleInputTax" placeholder="Tax"
+              autocomplete="off" [(ngModel)]="productObj.tax" formControlName="tax" [maxlength]="25">
+            <span
+              *ngIf="productFormGroup.controls['tax'].hasError('required') &&  productFormGroup.controls['tax'].touched"
               class="text-danger">Tax is required!
             </span>
           </div>

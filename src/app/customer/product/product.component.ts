@@ -26,6 +26,8 @@ export class ProductComponent implements OnInit {
     tax: null,
   }
 
+  searchText: any;
+
   constructor(public utilsService: UtilsService, private fb: FormBuilder) { 
     this.getProductDetails();
   }
@@ -43,11 +45,12 @@ export class ProductComponent implements OnInit {
 
     this.productDetails = [];
 
-    const param = {}
+    const param = {
+      name: this.searchText,
+    }
 
-    this.utilsService.getMethodAPI(false, this.utilsService.serverVariableService.PRODUCT_LISTING, param, (response) =>{
+    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.PRODUCT_LISTING, param, (response) =>{
       this.productDetails = response;
-      console.log(this.productDetails);
     })
 
     
@@ -120,6 +123,10 @@ export class ProductComponent implements OnInit {
 
   absoluteIndex(indexOnPage: number): number {
     return this.itemsPerPage * (this.p - 1) + indexOnPage;
+  }
+
+  onChangeSearch() {
+    this.getProductDetails();
   }
 
 }

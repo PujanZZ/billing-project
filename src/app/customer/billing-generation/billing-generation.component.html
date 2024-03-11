@@ -18,8 +18,8 @@
 
   <hr />
 
-  <div class="table-responsive">
-    <table class="table table-hover table-striped table-bordered">
+  <div style="max-height: 450px; overflow-y: auto;">
+    <table class="table table-hover table-striped table-bordered sticky-header">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -48,7 +48,7 @@
             </button>
           </td>
         </tr>
-        <tr *ngIf="!this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)">
+        <tr *ngIf="!this.utilsService.isEmptyObjectOrNullUndefined(billingDetails[0]?.product)"> 
           <td colspan="2"></td>
           <td class="text-center"><b>Total Price:</b> {{priceTotal}}</td>
           <td class="text-center"><b>Total Quantity:</b> {{quantityTotal}}</td>
