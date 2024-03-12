@@ -35,4 +35,7 @@ export class ServerVariableService {
 
   //COUNTER
   DASHBOARD_COUNTER = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/counter.php'
+
+  //SALES
+  SALES_LISTING = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/final_bill.php'
 }

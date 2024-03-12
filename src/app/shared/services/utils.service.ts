@@ -37,28 +37,6 @@ export class UtilsService {
   constructor(public http: HttpClient, public router: Router, public toasterService: ToastrService,
     public serverVariableService: ServerVariableService,
     public validationService: ValidationService,) { 
-
-      // this.http.get('https://madhavoverseas.co.in/my.testing.com/api.php', {}).subscribe(
-      //   (response) => {
-      //     console.log('Response from API:', response);
-      //   },
-      //   (error) => {
-      //     console.error('Error:', error);
-      //   }
-      // );
-
-      let param = {
-        id: 2,
-      }
-
-      // this.http.post('https://madhavoverseas.co.in/my.testing.com/billing_post.php', param).subscribe(
-      //   (response) => {
-      //     console.log('Response from API:', response);
-      //   },
-      //   (error) => {
-      //     console.error('Error:', error);
-      //   }
-      // )
     }
 
   /**

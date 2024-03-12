@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomerManegementComponent } from './customer-manegement/customer-manegement.component';
 import { ProductComponent } from './product/product.component';
 import { BillingGenerationComponent } from './billing-generation/billing-generation.component';
+import { SalesComponent } from './sales/sales.component';
 
 /** Customer Child Routes*/
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'customer-management', component: CustomerManegementComponent },
     { path: 'products', component: ProductComponent },
     { path: 'billing', component: BillingGenerationComponent },
+    { path: 'sales', component: SalesComponent },
   ]
 }
 ]
@@ -26,6 +28,6 @@ const routes: Routes = [
     SharedModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [CustomerComponent, DashboardComponent, CustomerManegementComponent, ProductComponent, BillingGenerationComponent]
+  declarations: [CustomerComponent, DashboardComponent, CustomerManegementComponent, ProductComponent, BillingGenerationComponent, SalesComponent]
 })
 export class CustomerModule { }
