@@ -38,4 +38,5 @@ export class ServerVariableService {
 
   //SALES
   SALES_LISTING = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/final_bill.php'
+  CUS_LISTING_SALES = this.PATH_FOR_API + 'https://madhavoverseas.co.in/my.testing.com/listing.php'
 }

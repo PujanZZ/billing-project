@@ -14,9 +14,11 @@ export class SalesComponent implements OnInit {
 
   salesListing: any[] = [];
   demoItems = [];
+  activeStatus: any;
 
   billSalesModal: any;
   selectedCustomer: any;
+  
 
   constructor(public utilsService: UtilsService) { }
 
@@ -26,6 +28,7 @@ export class SalesComponent implements OnInit {
       document.getElementById('billSalesModal')
     );
 
+    this.getCustomerDetails();
     this.getSalesListing();
   }
 
@@ -37,7 +40,7 @@ export class SalesComponent implements OnInit {
       name: null
     }
 
-    this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.CUS_LISTING, param, (response) => {
+    this.utilsService.getMethodAPI(false, this.utilsService.serverVariableService.CUS_LISTING_SALES, param, (response) => {
       this.demoItems = response;
     })
   }
@@ -46,11 +49,12 @@ export class SalesComponent implements OnInit {
 
     this.salesListing = [];
 
-    const param = {}
+    const param = {
+      cust_id: Number(this.activeStatus),
+    }
 
     this.utilsService.postMethodAPI(false, this.utilsService.serverVariableService.SALES_LISTING, param, (response) => {
       this.salesListing = response;
-
       this.salesListing = this.salesListing.map(v => ({ ...v, product: JSON.parse(v.product) }));
     })
 
@@ -58,9 +62,12 @@ export class SalesComponent implements OnInit {
   
 
   openProductModal(item) {
-    console.log(item);
     this.selectedCustomer = item;
     this.billSalesModal.show();
+  }
+
+  onCustomerChange() {
+    this.getSalesListing();
   }
 
 }
